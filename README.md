@@ -27,3 +27,9 @@
   - Collider 연산 빠른순서 : 1.Sphere(r) 2.Capsule(r,h) 3.Box
     - Mesh Collider 는 주의해서 사용해야한다.(Low Poly에서는 잘 사용하면 매우 편리할 수 있다.)
 - AddForce/AddRelativeForce : Global/Local 좌표 차이
+
+## 2주차 (2020.09.19, 온라인)
+- Weapon모델에 firePos위치 및 fireCtrl 스크립트 연동
+- 적당히 기능별로 script를 분리하는것이 좋다.
+- 동적으로 Object를 생성하는 메서드는 Instantiate가 유일하다.
+- Bullet prefab에 Add Tag로 BULLET 추가(충돌 처리를 위해)
