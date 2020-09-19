@@ -9,7 +9,8 @@ public class RemoveBullet : MonoBehaviour
         if(other.gameObject.tag == "BULLET"){
             ContactPoint[] points = other.contacts;
             Vector3 normalVec = points[0].normal;
-            Instantiate(sparkEffect, points[0].point, Quaternion.LookRotation(normalVec));
+            GameObject sparkObj = Instantiate(sparkEffect, points[0].point, Quaternion.LookRotation(normalVec));
+            Destroy(sparkObj, 0.3f);
             Destroy(other.gameObject);
         }
     }

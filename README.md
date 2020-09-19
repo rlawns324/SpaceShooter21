@@ -42,3 +42,9 @@
 - 총알에 충돌당한 면의 Normal방향으로 이펙트발생시키기
   - 충돌체 면이 파고들 수 있으므로, 충돌된 point는 1점 이상이어서 배열로 반환(Collision.contacts)된다. 
   - Quaternion.LookRotation(vec3) -> vec3의 각을 쿼터니언으로 변환해줌
+- AudioListner -> 귀(유일하게 1개만 존재해야한다. Main Camera에 달려있는것 말고 다른 카메라에있는것은 삭제)
+- AudioSource -> 음원(Player에 추가, FireCtrl 스크립트에서 제어)
+  - PlayOneShot(AudioClip) : 중간에 안짜르고 1번 재생하는 메서드
+- Asset Store -> Barrel Import -> Prefab말고 원본 모델에서 Scale Factor 줄이고 씬에 추가. Transform Scale을 줄이는것은 권장X
+- Barrel 에 Capsule Collider 추가, RemoveBullet 스크립트 추가
+- Barrel Texture Random 하게 되도록
