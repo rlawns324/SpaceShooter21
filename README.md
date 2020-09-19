@@ -33,3 +33,12 @@
 - 적당히 기능별로 script를 분리하는것이 좋다.
 - 동적으로 Object를 생성하는 메서드는 Instantiate가 유일하다.
 - Bullet prefab에 Add Tag로 BULLET 추가(충돌 처리를 위해)
+- OnCollisionEnter(Collision) 충돌처리 Callback
+- Cinemachine(Package Manager -> Unity Registry -> Cinemachine Install)
+  - Create Virtual Camera
+  - Follow, LookAt 에 Player 할당 
+  - Save During Play 체크 하면 Runtime에서 설정한 값들이 저장된다.
+- Particle Effect : Asset Store -> Unity Particle Pack 5.x Download
+- 총알에 충돌당한 면의 Normal방향으로 이펙트발생시키기
+  - 충돌체 면이 파고들 수 있으므로, 충돌된 point는 1점 이상이어서 배열로 반환(Collision.contacts)된다. 
+  - Quaternion.LookRotation(vec3) -> vec3의 각을 쿼터니언으로 변환해줌
