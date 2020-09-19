@@ -47,4 +47,30 @@
   - PlayOneShot(AudioClip) : 중간에 안짜르고 1번 재생하는 메서드
 - Asset Store -> Barrel Import -> Prefab말고 원본 모델에서 Scale Factor 줄이고 씬에 추가. Transform Scale을 줄이는것은 권장X
 - Barrel 에 Capsule Collider 추가, RemoveBullet 스크립트 추가
-- Barrel Texture Random 하게 되도록
+- tag비교 시에 if other.gameObject.tag == "BULLET" 처럼 하면 GC때문에 퍼포먼스 저하(https://answers.unity.com/questions/200820/is-comparetag-better-than-gameobjecttag-performanc.html)
+- Barrel에 Texture []로 3장의 텍스쳐를 할당한 후, 랜덤하게 1개의 텍스쳐를 갖도록
+- 텍스쳐를 바로 그릴 수 없으니 MeshRenderer 에 전달해줘야 한다.
+- Bullet Prefab에 TrailRenderer 추가. 다운받은 리소스에서 trail.png 가져와서 Material에 적용.
+- 위 Material shader를 mobile/particle/additive 에 trail.png
+- Muzzle Flash(Mesh에 그리기)
+  - FirePos의 child로 Quad생성(이름:MuzzleFlash), 이 오브젝트에 MuzzleFlash.png를 끌어다 놓으면 자동으로 Materials안에 Material이 생성됨. 위와 마찬가지로 mobile/particle/additive하고 tiling 1/2로 설정
+  - Coroutine 사용해서 깜빡거리게 구현
+  - 좀 더 재밌어보이기 위해 발사할때마다 크기와 각도, texture offset을 Random하게 설정
+    - 꼭 transform을 public으로 빼지 않아도 다른 컴포넌트.transform으로도 접근 가능(여기선 muzzleFlash라는 MeshRenderer로 접근) 
+    - rotation을 하지 않고 setTextureOffset으로 텍스쳐를 갈아끼우는 방식으로도 Variation을 줄 수 있다.
+- Unity 하늘 표현 방식
+  - 1. Procedural Sky -> Sun, Atmosphere thickness 와 같은 Parameter를 수정하여 표현
+  - 2. SkyBox(지금은 6 sided 라고 부름) -> 단점:6장의 텍스쳐 사용해야함.
+  - 3. Sky Dome(가장자리 왜곡고려해야하지만 1장의 텍스쳐만 사용)
+  - 4. Cubemap
+  - 이 과정에선 1,2번 실습
+  - Material 생성(SkyboxPC) -> Shader -> Procedural Sky선택, 파라미터 원하는대로조절. 
+  - Window -> Lighting -> Environment에서 Material 교체, 이게 귀찮으면 그냥 Skybox Material을 scene에 drag해도 된다.
+- Monster Model 다운로드(줌 채팅)
+  - rig -> Humanoid 로 설정 -> Apply -> Configure 진입하여 Avatar멥핑정보 확인
+  - Hierachy에 추가하여 이러한 모델을 가져왔을경우 Unit Scale, Animator인지 Animation인지 확인
+  - 추가한 Monster는 Mechanim방식이기때문에 Animator컴포넌트를 갖고있고, 이는 script가 아닌 별도의 Controller를 필요로 함
+  - Animator Controller(MonsterAnim)추가. Shift + Space 창 최대/최소화
+    - FSM(Finite State Machine) 구조로 되어있음
+    - Transition의 HasExitTime ? 헷갈리지만, 어떤 트리거가 발동되면 바로 트랜지션이 작동되길원하면 Uncheck되어야 함
+    - RunTime에서 IsTrace(bool Parameter) 체크발동해제 해보면서 Transition잘 되는지 확인  
