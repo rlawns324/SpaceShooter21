@@ -77,4 +77,15 @@
 
 ## 3주차 (2020.09.26, 온라인)
 - mixamo에서 모션캡쳐 애니메이션 적용해보기
-
+- Nav Mesh
+  - 장애물 prefab에 Navigation Static 설정
+  - Aera Mask ? Nav Mesh마다 cost를 다르게 줄 수 있다.
+- Nav Mesh Agent
+  - Monster -> Player 따라가도록 하는 스크립트(Moster Ctrl)
+  - "Player"와 같이 오브젝트명으로도 reference할 수 있지만, tag로 하자(PLAYER 태그 추가)
+  - FindGameObjectWithTag와 같은 find계열은 매우 느리기 때문에 initialize단계에서만 1번 실행되도록 주의
+  - public 변수 Inspector에서 숨기기
+  [System.NonSerialized],[HideInInspector]
+  - script에서 Nav Mesh사용하려면 namespace추가해야함
+    - using UnityEngine.AI;
+    - monster의 상태체크는 FSM enum을 만든 후 관리하고, update에서 하지 않고 0.3f정도의 인터벌을 갖는 코루틴으로 체크해서 최적화한다.
