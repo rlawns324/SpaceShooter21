@@ -21,6 +21,10 @@ public class MonsterCtrl : MonoBehaviour
     public bool isDead = false;
     public float attackDist = 2.0f;
     public float traceDist = 10.0f;
+    private int hashAttack;
+    private int hashHit;
+    private int hashDie = Animator.StringToHash("Die");
+    public float hp = 100.0f;
     void Start()
     {
         monsterTr = this.GetComponent<Transform>();
@@ -30,6 +34,9 @@ public class MonsterCtrl : MonoBehaviour
         }
         agent = GetComponent<NavMeshAgent>();
         anim = GetComponent<Animator>();
+
+        hashAttack = Animator.StringToHash("IsAttack");
+        hashHit = Animator.StringToHash("Hit");
         StartCoroutine(CheckMonsterState());
         StartCoroutine(MonsterAction());
     }
@@ -57,16 +64,36 @@ public class MonsterCtrl : MonoBehaviour
                     agent.isStopped = true;
                     break;
                 case STATE.TRACE:
+                    anim.SetBool(hashAttack, false);
                     anim.SetBool("IsTrace", true);
                     agent.SetDestination(playerTr.position);
                     agent.isStopped = false;
                     break;
                 case STATE.ATTACK:
+                    anim.SetBool(hashAttack, true);
                     break;
                 case STATE.DEAD:
                     break;
             }
             yield return new WaitForSeconds(0.2f);
         }
+    }
+
+    private void OnCollisionEnter(Collision other) {
+        if(other.collider.CompareTag("BULLET")){
+            Destroy(other.gameObject);
+            anim.SetTrigger(hashHit);
+            hp -= 20.0f;
+            if(hp <= 0.0f){
+                MonsterDie();
+            }
+        }
+    }
+
+    void MonsterDie(){
+        GetComponent<CapsuleCollider>().enabled = false;
+        agent.isStopped = true;
+        StopAllCoroutines();
+        anim.SetTrigger(hashDie);
     }
 }

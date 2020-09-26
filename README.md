@@ -89,3 +89,9 @@
   - script에서 Nav Mesh사용하려면 namespace추가해야함
     - using UnityEngine.AI;
     - monster의 상태체크는 FSM enum을 만든 후 관리하고, update에서 하지 않고 0.3f정도의 인터벌을 갖는 코루틴으로 체크해서 최적화한다.
+  - Animator Hashtable에서 미리 Hash 추출하기
+    - anim.set~(param, ..)에서 param에 문자열로 넘길 수도있고 해시값을 넘겨도 된다.
+    - Hash값은 Integer(Animator.StringToHash(string))
+  - gothit 애니메이션클립추가
+    - 이 클립은 언제든지 작동할 수 있어야 하기 때문에 Any State에서 transition을 연결. 되돌아가는 transition은 모든상태로 각각 parameter 조건을 따져서 이어줘야한다.
+    - 
