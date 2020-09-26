@@ -11,7 +11,7 @@ public class BulletCtrl : MonoBehaviour
         rb = this.gameObject.GetComponent<Rigidbody>();
         rb.AddRelativeForce(Vector3.forward * 1000);
     }
-
+    
     private void OnCollisionEnter(Collision other) {
     }
 }

@@ -74,3 +74,7 @@
     - FSM(Finite State Machine) 구조로 되어있음
     - Transition의 HasExitTime ? 헷갈리지만, 어떤 트리거가 발동되면 바로 트랜지션이 작동되길원하면 Uncheck되어야 함
     - RunTime에서 IsTrace(bool Parameter) 체크발동해제 해보면서 Transition잘 되는지 확인  
+
+## 3주차 (2020.09.26, 온라인)
+- mixamo에서 모션캡쳐 애니메이션 적용해보기
+
