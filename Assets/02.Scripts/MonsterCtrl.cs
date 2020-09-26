@@ -29,12 +29,14 @@ public class MonsterCtrl : MonoBehaviour
 
     private void OnEnable() { //event연결시에 많이 사용함
         PlayerCtrl.OnPlayerDie += this.YouWin;
+        StartCoroutine(CheckMonsterState());
+        StartCoroutine(MonsterAction());
     }
 
     private void OnDisable() {
         PlayerCtrl.OnPlayerDie -= this.YouWin;
     }
-    void Start()
+    void Awake()
     {
         monsterTr = this.GetComponent<Transform>();
         GameObject playerObj = GameObject.FindGameObjectWithTag("PLAYER"); //연결돼있지 않은 오브젝트이기때문에 우선 검색을 해야함
@@ -46,8 +48,7 @@ public class MonsterCtrl : MonoBehaviour
 
         hashAttack = Animator.StringToHash("IsAttack");
         hashHit = Animator.StringToHash("Hit");
-        StartCoroutine(CheckMonsterState());
-        StartCoroutine(MonsterAction());
+        
     }
 
     //매 프레임마다 update에서 상태값을 체크하지 않고 coroutine에서 0.3초마다 상태체크하도록 최적화
@@ -91,11 +92,14 @@ public class MonsterCtrl : MonoBehaviour
     private void OnCollisionEnter(Collision other) {
         if(other.collider.CompareTag("BULLET")){
             Destroy(other.gameObject);
-            anim.SetTrigger(hashHit);
-            hp -= 20.0f;
-            if(hp <= 0.0f){
-                MonsterDie();
-            }
+        }
+    }
+
+    public void OnDamage(){
+        anim.SetTrigger(hashHit);
+        hp -= 20.0f;
+        if(hp <= 0.0f){
+            MonsterDie();
         }
     }
 
@@ -104,8 +108,13 @@ public class MonsterCtrl : MonoBehaviour
         agent.isStopped = true;
         StopAllCoroutines();
         anim.SetTrigger(hashDie);
+        Invoke("ReturnPooling", 5.0f);
     }
 
+    void ReturnPooling(){
+        hp = 100.0f;
+        GetComponent<CapsuleCollider>().enabled = true;
+    }
     private void OnTriggerEnter(Collider other) {
         Debug.Log("Monster Hit = " + other.gameObject.name);
     }

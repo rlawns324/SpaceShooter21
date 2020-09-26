@@ -119,4 +119,11 @@
     - 다만 여기서 Deligate를 활용하여 모든 Monster Object를 탐색하는것을 개선할 수 있음(OnEnable에서 += 연산자로 binding 시켜줌)
   - Object Pooling
     - Unity에서 Instantiate와 Destroy는 Cost가 크다.
-    - 
+    - 특히 Mobile에서는 필수로 구현해야함
+  - GamaManager의 isGameOver의 Static키워드 삭제
+    - PlayerCtrl에서 다른방법으로 접근
+    - GameObject.Find("GameManager")으로 gamaManager변수를 할당해도 되지만, 이렇게 하면 모든 scipt변수를 선언해야하니 번거롭다. Singleton패턴으로 해결
+  - Physics.Raycast
+    - 총알 Collider를 사용하지 않고 Raycast 피격구현
+    - MonsterCtrl에서 OnCollisionEnter대신 public OnDamage()와 같은 함수를 FireCtrl에서 호출
+  - Nav Mesh Obstacle로 Nav Mesh Agent가 동적으로 장애물에 반응하게 할 수 있다.

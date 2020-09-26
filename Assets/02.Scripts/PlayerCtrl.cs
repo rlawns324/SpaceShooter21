@@ -26,10 +26,10 @@ public class PlayerCtrl : MonoBehaviour
     //public static event (델리게이트명) (이벤트명 = 변수명)
     public delegate void PlayerDieHandler();
     public static event PlayerDieHandler OnPlayerDie;
-
+    
     // Start is called before the first frame update
     void Start()
-    {
+    {   
         anim = GetComponent<Animation>();
         anim.Play(playerAnim.idle.name);
     }
@@ -75,9 +75,8 @@ public class PlayerCtrl : MonoBehaviour
         }
     }
 
-    void PlayerDie(){
-        GameManager.isGameOver = true;
-        
+    void PlayerDie(){      
+        GameManager.instance.isGameOver = true;  
         //Raise events
         OnPlayerDie();
         // event방식이면 아래 코드가 필요없다.

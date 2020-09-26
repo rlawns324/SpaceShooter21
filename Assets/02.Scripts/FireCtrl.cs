@@ -9,6 +9,8 @@ public class FireCtrl : MonoBehaviour
      public AudioClip fireSfx;
      private new AudioSource audio;
      public MeshRenderer muzzleFlash;
+     public float fireRange = 10.0f;
+     private RaycastHit hit;
     void Start()
     {
         audio = GetComponent<AudioSource>();
@@ -18,9 +20,13 @@ public class FireCtrl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.DrawRay(firePos.position, firePos.forward * fireRange, Color.green);
         if (Input.GetMouseButtonDown(0))
         {
             Fire();
+            if(Physics.Raycast(firePos.position, firePos.forward, out hit, fireRange, 1<<8)){
+                hit.collider.gameObject.GetComponent<MonsterCtrl>().OnDamage();
+            }
         }
     }
 

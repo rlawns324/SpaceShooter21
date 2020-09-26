@@ -9,9 +9,6 @@ public class BulletCtrl : MonoBehaviour
     void Start()
     {
         rb = this.gameObject.GetComponent<Rigidbody>();
-        rb.AddRelativeForce(Vector3.forward * 1000);
-    }
-    
-    private void OnCollisionEnter(Collision other) {
+        rb.AddRelativeForce(Vector3.forward * 2000);
     }
 }
