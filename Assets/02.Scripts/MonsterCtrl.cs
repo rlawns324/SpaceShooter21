@@ -25,6 +25,15 @@ public class MonsterCtrl : MonoBehaviour
     private int hashHit;
     private int hashDie = Animator.StringToHash("Die");
     public float hp = 100.0f;
+    private int hashDance = Animator.StringToHash("PlayerDie");
+
+    private void OnEnable() { //event연결시에 많이 사용함
+        PlayerCtrl.OnPlayerDie += this.YouWin;
+    }
+
+    private void OnDisable() {
+        PlayerCtrl.OnPlayerDie -= this.YouWin;
+    }
     void Start()
     {
         monsterTr = this.GetComponent<Transform>();
@@ -95,5 +104,15 @@ public class MonsterCtrl : MonoBehaviour
         agent.isStopped = true;
         StopAllCoroutines();
         anim.SetTrigger(hashDie);
+    }
+
+    private void OnTriggerEnter(Collider other) {
+        Debug.Log("Monster Hit = " + other.gameObject.name);
+    }
+
+    public void YouWin(){
+        StopAllCoroutines();
+        agent.isStopped = true;
+        anim.SetTrigger(hashDance);
     }
 }

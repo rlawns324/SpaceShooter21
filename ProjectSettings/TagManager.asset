@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - BULLET
+  - PLAYER
+  - PUNCH
   layers:
   - Default
   - TransparentFX
@@ -14,8 +16,8 @@ TagManager:
   - UI
   - 
   - 
-  - 
-  - 
+  - MONSTER_BODY
+  - MONSTER_PUNCH
   - 
   - 
   - 

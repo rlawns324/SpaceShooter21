@@ -94,4 +94,29 @@
     - Hash값은 Integer(Animator.StringToHash(string))
   - gothit 애니메이션클립추가
     - 이 클립은 언제든지 작동할 수 있어야 하기 때문에 Any State에서 transition을 연결. 되돌아가는 transition은 모든상태로 각각 parameter 조건을 따져서 이어줘야한다.
+    - Die 클립에서 RootTransformRotation, RootTransformPosition(Y)에서 Bake Into Pose 체크하면 바닥에 딱 붙게 됨
+    - Die 조건에서는 모든 코루틴 중지
+  - Monster Attack
+    - wrist컴포넌트 찾아가서 sphere collider추가
+    - IsTrigger체크해서 때려도 부딪히지 않도록, IsKinematic체크해서 BackGround에서 물리연산하지않도록(즉, 이 경우에는 UseGravity 무의미), RigidBody는 오로지 충돌체크를 위해 존재
+    - OnTriggerEnter vs OnCollisionEnter
+      - IsTrigger 체크/언체크, 관통/충돌
+    - Layer 편집(몸통과 주먹 안부딪히게 하기위해)
+      -  Sorting Layer가 포토샵에서같은 계층레이어라서 2D게임에서 사용. 그냥 Layer는 계층은 아니고 그룹의 개념이다.
+      -  몸통 - MONSTER_BODY, 주먹 - MONSTER_PUNCH, Recursive this object only
+      -  Edit -> Project Settings -> Physics -> Layer Collision Matrix에서 BODY, PUNCH 체크 해제
+ - 사용하지않는 Gameobject Hierachy뷰에서 안보이게하기
+   - 3D Model Inspector에서 -> Rig -> Extra Transforms to Expose에서 보이고싶은것만 체크
+ - Monster 동적생성
+   - SpawnPointGroup Empty object추가
+   - UserDefinedGizmo를 스크립트로 만들어보기(MyGizmos.cs)
+ - GameManager
+   - spawnpoint, gameover등 게임관리하는 객체
+   - 몬스터 생성 코루틴에서 yield return 시에 new 생성자 사용하지 않고, WaitForSeconds변수를 미리 start에서 생성하기(최적화)
+  - SendMessage활용 PlayerDie()
+    - SendMessage(FunctionName, receiveroption)
+    - isGameOver는 public static으로 설정
+    - 다만 여기서 Deligate를 활용하여 모든 Monster Object를 탐색하는것을 개선할 수 있음(OnEnable에서 += 연산자로 binding 시켜줌)
+  - Object Pooling
+    - Unity에서 Instantiate와 Destroy는 Cost가 크다.
     - 

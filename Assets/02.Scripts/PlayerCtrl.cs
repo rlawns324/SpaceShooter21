@@ -17,6 +17,16 @@ public class PlayerCtrl : MonoBehaviour
     public float turnSpeed = 1000.0f;
     public PlayerAnim playerAnim;
     private Animation anim;
+    private float initHp = 100.0f;
+    private float currHp = 100.0f; //(curHp/initHp 생명 bar 만들때 사용)
+    
+    //이벤트 처리 - 델리게이트(대리자)- 변수(함수를 저장)-함수포인터와 유사
+    //델리게이트 원형을 정의
+    //public delegate (함수원형)
+    //public static event (델리게이트명) (이벤트명 = 변수명)
+    public delegate void PlayerDieHandler();
+    public static event PlayerDieHandler OnPlayerDie;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -39,27 +49,41 @@ public class PlayerCtrl : MonoBehaviour
 
 
     void PlayAnim(float h, float v){
-        if (v >= 0.1f)
-        {
+        if (v >= 0.1f){
             anim.CrossFade(playerAnim.runForward.name, 0.3f);
         }
-        else if(v <= -0.1f)
-        {
+        else if(v <= -0.1f){
             anim.CrossFade(playerAnim.runBackward.name, 0.3f);
         }
-        else if (h>= 0.1f)
-        {
+        else if (h>= 0.1f){
             anim.CrossFade(playerAnim.runRight.name, 0.3f);
         }
-        else if (h <= -0.1f)
-        {
+        else if (h <= -0.1f){
             anim.CrossFade(playerAnim.runLeft.name, 0.3f);
         }
-        else
-        {
+        else{
             anim.CrossFade(playerAnim.idle.name, 0.3f);
 
         }
+    }
+    private void OnTriggerEnter(Collider other) {
+        if(other.CompareTag("PUNCH")){
+            currHp -= 10.0f;
+            if(currHp <= 0.0f){
+                PlayerDie();
+            }
+        }
+    }
 
+    void PlayerDie(){
+        GameManager.isGameOver = true;
+        
+        //Raise events
+        OnPlayerDie();
+        // event방식이면 아래 코드가 필요없다.
+        // GameObject[] monsters = GameObject.FindGameObjectsWithTag("MONSTER");
+        // foreach(GameObject monster in monsters){
+        //     monster.SendMessage("YouWin", SendMessageOptions.DontRequireReceiver);
+        // }
     }
 }
