@@ -549,6 +549,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1989183786}
     m_Modifications:
+    - target: {fileID: -2205051339715645151, guid: 70efd69d11a3a0a499de725c6dbae4c0, type: 3}
+      propertyPath: m_Carve
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -2205051339715645151, guid: 70efd69d11a3a0a499de725c6dbae4c0, type: 3}
+      propertyPath: m_MoveThreshold
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: -2205051339715645151, guid: 70efd69d11a3a0a499de725c6dbae4c0, type: 3}
+      propertyPath: m_TimeToStationary
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 1709514501865287629, guid: 70efd69d11a3a0a499de725c6dbae4c0, type: 3}
       propertyPath: m_Name
       value: Barrel (7)
@@ -563,7 +575,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2441570818213928414, guid: 70efd69d11a3a0a499de725c6dbae4c0, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.7751372
+      value: -2.72
       objectReference: {fileID: 0}
     - target: {fileID: 2441570818213928414, guid: 70efd69d11a3a0a499de725c6dbae4c0, type: 3}
       propertyPath: m_LocalRotation.x
@@ -1565,7 +1577,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 886632801}
-  m_LocalRotation: {x: 0.14410093, y: 0.692268, z: -0.14410093, w: 0.69226795}
+  m_LocalRotation: {x: 0.14410095, y: 0.692268, z: -0.14410093, w: 0.69226795}
   m_LocalPosition: {x: -4.716001, y: 4.54, z: 0.1040008}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -1705,7 +1717,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.14410093, y: 0.692268, z: -0.14410093, w: 0.69226795}
+  m_LocalRotation: {x: 0.14410095, y: 0.692268, z: -0.14410093, w: 0.69226795}
   m_LocalPosition: {x: -4.716001, y: 4.54, z: 0.1040008}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []

@@ -127,3 +127,5 @@
     - 총알 Collider를 사용하지 않고 Raycast 피격구현
     - MonsterCtrl에서 OnCollisionEnter대신 public OnDamage()와 같은 함수를 FireCtrl에서 호출
   - Nav Mesh Obstacle로 Nav Mesh Agent가 동적으로 장애물에 반응하게 할 수 있다.
+
+## 4주차 (2020.10.10, 온라인)
